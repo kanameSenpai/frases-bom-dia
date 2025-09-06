@@ -3,7 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Frases de Bom Dia</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    .frase {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #007BFF;
+      color: white;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -17,26 +57,36 @@
     </div>
   </div>
 
-  <!-- Importa os 3 arquivos de frases -->
-  <script src="frases1.js"></script>
-  <script src="frases2.js"></script>
-  <script src="frases3.js"></script>
-
-  <!-- Script principal -->
   <script>
-    // Junta todas as frases dos 3 arquivos
-    let todasFrases = [...frases1, ...frases2, ...frases3];
+    const frases = [
+      "Seja forte diante dos desafios 💪 Continue em frente com coragem 🚀 Acredite em você e no seu potencial 🌟 Nunca desista dos seus sonhos 🔥 A persistência abre portas que parecem fechadas 🏆",
+      "Coragem é seguir mesmo com medo 🛡️ Sorria sempre mesmo nas dificuldades 😊 Tenha fé no seu caminho 🙏 A vitória vem para quem insiste 🏅 Cada erro traz aprendizado valioso 📚 O sucesso é construído com disciplina ✨",
+      "A força interior move montanhas 🌈 Dedicação transforma objetivos em realidade 🌞 Determinação supera qualquer obstáculo 🎯 Resiliência é o segredo da conquista ⚡ Continue em frente com coragem 💪 Sorria sempre mesmo nas dificuldades 🚀",
+      "Nunca desista dos seus sonhos 🌟 Seja forte diante dos desafios 🔥 Acredite em você e no seu potencial 🏆 A persistência abre portas que parecem fechadas 🛡️ O sucesso é construído com disciplina 😊 Tenha fé no seu caminho 🙏",
+      "Cada erro traz aprendizado valioso 🏅 Dedicação transforma objetivos em realidade 📚 Coragem é seguir mesmo com medo ✨ A força interior move montanhas 🌈 Resiliência é o segredo da conquista 🌞 Determinação supera qualquer obstáculo 🎯",
+      "A vida é uma jornada cheia de oportunidades 🌄 Encare cada desafio com coragem 💪 Tenha fé no seu potencial 🌟 Continue acreditando nos seus sonhos 🔥 O esforço diário constrói grandes conquistas 🏆",
+      "Grandes vitórias começam com pequenos passos 👣 Cada ação conta 💥 Sorria mesmo nos momentos difíceis 😊 Persistência é o segredo do sucesso 🎯 Continue firme mesmo quando tudo parecer impossível ⚡",
+      "Acredite que você pode 🌈 E o universo ajudará a realizar 💪 A cada dificuldade surge uma oportunidade 🚀 Tenha coragem de tentar novamente 🔥 Nunca perca a fé 🙏 E siga sempre com determinação 🌟",
+      "A disciplina transforma sonhos em realidade 📚 Quem persiste mesmo diante das adversidades 💪 Encontra a força para superar 🌞 A vitória sorri para quem não desiste 🏅 Cada esforço vale a pena 💥",
+      "O caminho pode ser difícil 🏔️ Mas cada desafio fortalece 🌟 Tenha paciência e confiança 💖 Cada passo dado com coragem 💪 Leva a grandes conquistas 🚀 O segredo é nunca desistir 🌈",
+      // ... continue adicionando até completar 100 frases grandes
+    ];
 
     function gerarFrase() {
+      if (frases.length === 0) {
+        document.getElementById("frase").innerText = "Nenhuma frase disponível!";
+        return;
+      }
+
       const nome = document.getElementById("nome").value || "Amigo";
-      const frase = todasFrases[Math.floor(Math.random() * todasFrases.length)];
+      const frase = frases[Math.floor(Math.random() * frases.length)];
 
       const hoje = new Date();
       const diasSemana = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
       const diaSemana = diasSemana[hoje.getDay()];
 
-      // Substitui marcador de nome e adiciona "Bom dia e feliz [dia]"
-      const fraseFinal = frase.replace("{{nome}}", nome) + " Bom dia e feliz " + diaSemana + " 🌞";
+      let fraseFinal = frase.includes("{{nome}}") ? frase.replace("{{nome}}", nome) : frase;
+      fraseFinal += " Bom dia e feliz " + diaSemana + " 🌞";
 
       document.getElementById("frase").innerText = fraseFinal;
     }
