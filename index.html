@@ -2,28 +2,56 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frases de Bom Dia</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Frases de Bom Dia</h1>
-  <input type="text" id="nomeInput" placeholder="Digite o nome aqui...">
-
-  <div class="card" id="card">
-    <div class="nome" id="nome">Nome da Pessoa</div>
-    <div class="frase" id="frase"></div>
-  </div>
-
-  <div class="botoes">
+  <div class="container">
+    <h1>Frases de Bom Dia</h1>
+    <input type="text" id="nome" placeholder="Digite seu nome">
     <button onclick="gerarFrase()">Gerar Frase</button>
-    <button onclick="copiarFrase()">Copiar Frase</button>
-    <button onclick="enviarWhatsApp()">Compartilhar no WhatsApp</button>
+    <div id="frase" class="frase"></div>
+    <div class="botoes">
+      <button onclick="copiarFrase()">Copiar</button>
+      <button onclick="compartilharWhatsApp()">WhatsApp</button>
+    </div>
   </div>
 
+  <!-- Importa os 3 arquivos de frases -->
   <script src="frases1.js"></script>
   <script src="frases2.js"></script>
   <script src="frases3.js"></script>
-  <script src="script.js"></script>
+
+  <!-- Script principal -->
+  <script>
+    // Junta todas as frases dos 3 arquivos
+    let todasFrases = [...frases1, ...frases2, ...frases3];
+
+    function gerarFrase() {
+      const nome = document.getElementById("nome").value || "Amigo";
+      const frase = todasFrases[Math.floor(Math.random() * todasFrases.length)];
+
+      const hoje = new Date();
+      const diasSemana = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+      const diaSemana = diasSemana[hoje.getDay()];
+
+      // Substitui marcador de nome e adiciona "Bom dia e feliz [dia]"
+      const fraseFinal = frase.replace("{{nome}}", nome) + " Bom dia e feliz " + diaSemana + " 🌞";
+
+      document.getElementById("frase").innerText = fraseFinal;
+    }
+
+    function copiarFrase() {
+      const frase = document.getElementById("frase").innerText;
+      navigator.clipboard.writeText(frase);
+      alert("Frase copiada!");
+    }
+
+    function compartilharWhatsApp() {
+      const frase = document.getElementById("frase").innerText;
+      const url = "https://wa.me/?text=" + encodeURIComponent(frase);
+      window.open(url, "_blank");
+    }
+  </script>
 </body>
 </html>
